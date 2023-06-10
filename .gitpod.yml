@@ -6,13 +6,14 @@
 
 tasks:
   - name: Install GO
-    init: |
-      cd $HOME
-      rm -rf go
-      wget https://go.dev/dl/go1.20.5.linux-amd64.tar.gz
-      tar -C $HOME -xzf go1.20.5.linux-amd64.tar.gz
+    init: >
+      cd $HOME &&
+      rm -rf go &&
+      wget https://go.dev/dl/go1.20.5.linux-amd64.tar.gz &&
+      tar -xzf go1.20.5.linux-amd64.tar.gz &&
+      gp sync-done bundle
   
-  - init: go get && go build ./... && go test ./...
+  - init: gp sync-await bundle && go get && go build ./... && go test ./...
     command: go run .
 
 
